@@ -1,0 +1,122 @@
+type Candidate {
+  id: ID!
+  name: String!
+  description: String
+  votes: Int!
+}
+
+input CastVoteInput {
+  id: ID!
+}
+
+type Mutation {
+  castVote(input: CastVoteInput!): Candidate
+  createCandidate(input: CreateCandidateInput!): Candidate
+  updateCandidate(input: UpdateCandidateInput!): Candidate
+  deleteCandidate(input: DeleteCandidateInput!): Candidate
+}
+
+type Subscription {
+  onCastVote: Candidate @aws_subscribe(mutations: ["castVote"])
+  onCreateCandidate: Candidate @aws_subscribe(mutations: ["createCandidate"])
+  onUpdateCandidate: Candidate @aws_subscribe(mutations: ["updateCandidate"])
+  onDeleteCandidate: Candidate @aws_subscribe(mutations: ["deleteCandidate"])
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelCandidateConnection {
+  items: [Candidate]
+  nextToken: String
+}
+
+input ModelStringFilterInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+}
+
+input ModelIDFilterInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+}
+
+input ModelIntFilterInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  contains: Int
+  notContains: Int
+  between: [Int]
+}
+
+input ModelFloatFilterInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  contains: Float
+  notContains: Float
+  between: [Float]
+}
+
+input ModelBooleanFilterInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelCandidateFilterInput {
+  id: ModelIDFilterInput
+  name: ModelStringFilterInput
+  description: ModelStringFilterInput
+  votes: ModelIntFilterInput
+  and: [ModelCandidateFilterInput]
+  or: [ModelCandidateFilterInput]
+  not: ModelCandidateFilterInput
+}
+
+type Query {
+  getCandidate(id: ID!): Candidate
+  listCandidates(filter: ModelCandidateFilterInput, limit: Int, nextToken: String): ModelCandidateConnection
+}
+
+input CreateCandidateInput {
+  id: ID
+  name: String!
+  description: String
+  votes: Int!
+}
+
+input UpdateCandidateInput {
+  id: ID!
+  name: String
+  description: String
+  votes: Int
+}
+
+input DeleteCandidateInput {
+  id: ID
+}

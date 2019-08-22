@@ -1,0 +1,6 @@
+{
+    "AppSyncApiName": "markeypoll",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "S3DeploymentBucket": "markeypoll-dev-20190704141458-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/c6161b5b2104036619d4894c7b74daa0ffc1548d"
+}
